@@ -51,7 +51,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         advertisementData: [String : Any],
         rssi RSSI: NSNumber) {
         if let pname = peripheral.name {
-            print(pname)
+            //print(pname)
             if pname == "kath" {
                 print("kathleen has been located")
                 
