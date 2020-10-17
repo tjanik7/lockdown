@@ -65,8 +65,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("this boi connected")
-        //self.peripheralMan.discoverServices([firstServiceUUID])
         self.peripheralMan.discoverServices(nil)
+    }
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("disconnected")
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         print("Services:")
@@ -79,6 +81,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         } else {
             print("unable to unwrap services optional")
         }
+    }
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        print(peripheral.readValue(for: characteristic))
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let chars = service.characteristics {
@@ -93,9 +98,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {
         if let desc = characteristic.descriptors {
-            print("here desc")
             for descriptor in desc {
                 print(descriptor)
+                let isLocked: Data = "1".data(using: String.Encoding.utf8)!
+                peripheral.writeValue(isLocked, for: characteristic, type: .withResponse)
+                peripheral.readValue(for: characteristic)
+
             }
         } else {
             print("Unable to unwrap descriptors optional")
