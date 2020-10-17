@@ -8,26 +8,34 @@
 
 import UIKit
 import CoreBluetooth
+import CoreLocation
 
 let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
 
 let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")
 
-class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var luButton: UIButton!
     @IBOutlet weak var isConnectedLabel: UILabel!
     var centralMan: CBCentralManager!
     var peripheralMan: CBPeripheral!
     var _characteristics: [CBCharacteristic]?
     var isLocked = false
+    
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         centralMan = CBCentralManager(delegate: self, queue: nil)
-    }
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
 
+        
+        locationManager.requestAlwaysAuthorization()
+    }
+    
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
@@ -144,6 +152,25 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
         
         peripheralMan.readValue(for: characteristic)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("location manager authorization status changed")
+
+        switch status {
+        case .authorizedAlways:
+            print("user allow app to get location data when app is active or in background")
+        case .authorizedWhenInUse:
+            print("user allow app to get location data only when app is active")
+        case .denied:
+            print("user tap 'disallow' on the permission dialog, cant get location data")
+        case .restricted:
+            print("parental control setting disallow location data")
+        case .notDetermined:
+            print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
+        @unknown default:
+            print("Unkown location permission status")
+        }
     }
         
 }

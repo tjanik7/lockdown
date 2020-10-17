@@ -2,8 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Needed for tracking where LockDown was last locked</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Needed for tracking where LockDown was last locked</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Needed for tracking where LockDown was last locked</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Needed for connection to LockDown device.</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Needed for connection to LockDown device</string>
 	<key>CFBundleDevelopmentRegion</key>
