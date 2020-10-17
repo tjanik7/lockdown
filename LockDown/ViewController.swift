@@ -11,20 +11,21 @@ import CoreBluetooth
 
 let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
 
-let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")  // CHANGE THIS
+let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+    @IBOutlet weak var luButton: UIButton!
     @IBOutlet weak var isConnectedLabel: UILabel!
-    //@IBOutlet weak var lockUnlockButton: UIButton!
     var centralMan: CBCentralManager!
     var peripheralMan: CBPeripheral!
     var _characteristics: [CBCharacteristic]?
+    var isLocked = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-    centralMan = CBCentralManager(delegate: self, queue: nil)
+        centralMan = CBCentralManager(delegate: self, queue: nil)
     }
 
     
@@ -89,13 +90,31 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("characteristic value update")
+        let hey = characteristic.value!
+        let str = String(decoding: hey, as: UTF8.self)
+        print(str + "\n")
+        
+        if str == "0" {
+            isLocked = false
+        } else if str == "1" {
+            isLocked = true
+        } else {
+            print("not really sure if its locked or unlocked")
+        }
+        var newButtonText = "Lock"
+        if isLocked {
+            newButtonText = "Unlock"
+        }
+        
+        luButton.setTitle(newButtonText, for: .normal)
+        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let chars = service.characteristics {
             _characteristics = service.characteristics
             peripheral.setNotifyValue(true, for: _characteristics![0])
+            print("notify value has been set")
             for characteristic in chars {
                 print(characteristic)
                 self.peripheralMan.discoverDescriptors(for: characteristic)
@@ -116,9 +135,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
         
     @IBAction func toggleLockState(_ sender: Any) {
-        let isLocked: Data = "1".data(using: String.Encoding.utf8)!
-         let characteristic = _characteristics![0]
-         peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
+        var strToSend = "1"
+        if isLocked == true {
+            strToSend = "0"
+        }
+        let isLocked: Data = strToSend.data(using: String.Encoding.utf8)!
+        let characteristic = _characteristics![0]
+        peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
+        
+        peripheralMan.readValue(for: characteristic)
     }
         
 }

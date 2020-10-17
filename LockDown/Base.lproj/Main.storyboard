@@ -47,7 +47,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80m-Fa-i2k">
                                 <rect key="frame" x="116" y="256" width="181" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="Lock"/>
                                 <connections>
                                     <action selector="toggleLockState:" destination="BYZ-38-t0r" eventType="touchUpInside" id="35a-I0-jvO"/>
@@ -59,6 +59,7 @@
                     </view>
                     <connections>
                         <outlet property="isConnectedLabel" destination="3Gu-eB-g38" id="54D-7n-f8t"/>
+                        <outlet property="luButton" destination="80m-Fa-i2k" id="Qio-Li-xpm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
