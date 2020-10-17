@@ -14,15 +14,17 @@ let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
 let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")  // CHANGE THIS
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+    @IBOutlet weak var isConnectedLabel: UILabel!
+    //@IBOutlet weak var lockUnlockButton: UIButton!
     var centralMan: CBCentralManager!
     var peripheralMan: CBPeripheral!
+    var _characteristics: [CBCharacteristic]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
     centralMan = CBCentralManager(delegate: self, queue: nil)
-        //centralMan = CBCentralManager(delegate: self, queue: dispatch_get_main_queue())
     }
 
     
@@ -64,11 +66,14 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("this boi connected")
+        print("Connected")
+        isConnectedLabel.text = "Connected"
         self.peripheralMan.discoverServices(nil)
     }
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        isConnectedLabel.text = "Disconnected"
         print("disconnected")
+        
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         print("Services:")
@@ -82,14 +87,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             print("unable to unwrap services optional")
         }
     }
+    
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        //peripheral.readValue(for: characteristic)
-        let hey = characteristic.value!
-        let str = String(decoding: hey, as: UTF8.self)
-        print(str + "\n")
+        print("characteristic value update")
     }
+    
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let chars = service.characteristics {
+            _characteristics = service.characteristics
+            peripheral.setNotifyValue(true, for: _characteristics![0])
             for characteristic in chars {
                 print(characteristic)
                 self.peripheralMan.discoverDescriptors(for: characteristic)
@@ -103,13 +109,16 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         if let desc = characteristic.descriptors {
             for descriptor in desc {
                 print(descriptor)
-                let isLocked: Data = "1".data(using: String.Encoding.utf8)!
-                peripheral.writeValue(isLocked, for: characteristic, type: .withResponse)
-                peripheral.readValue(for: characteristic)
-
             }
         } else {
             print("Unable to unwrap descriptors optional")
         }
     }
+        
+    @IBAction func toggleLockState(_ sender: Any) {
+        let isLocked: Data = "1".data(using: String.Encoding.utf8)!
+         let characteristic = _characteristics![0]
+         peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
+    }
+        
 }
