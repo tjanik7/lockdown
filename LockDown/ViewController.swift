@@ -83,7 +83,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        print(peripheral.readValue(for: characteristic))
+        //peripheral.readValue(for: characteristic)
+        let hey = characteristic.value!
+        let str = String(decoding: hey, as: UTF8.self)
+        print(str + "\n")
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let chars = service.characteristics {
@@ -109,36 +112,4 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             print("Unable to unwrap descriptors optional")
         }
     }
-    
-//    @IBAction func onButtonTouch(sender: UIButton, characteristic: CBCharacteristic) {
-//        let isLocked: Data = "1".data(using: String.Encoding.utf8)!
-//        peripheralMan.writeValue(isLocked, for: (characteristic.descriptors?)!)
-//    }
 }
-            
-    //        let device = (advertisementData as NSDictionary).object(forKey: CBAdvertisementDataLocalNameKey) as? NSString
-    //        if device?.contains("uuid") == true { // SPECIFY PERIPHERAL DEVICE HERE
-    //            self.manager.stopScan()
-    //
-    //            self.peripheral = peripheral
-    //            self.peripheral.delegate = self
-    //
-    //            manager.connect(peripheral, options: nil)
-    //    func centralManager( // get services
-    //        central: CBCentralManager,
-    //        didConnectPeripheral peripheral: CBPeripheral) {
-    //        peripheral.discoverServices(CBUUID)  // SPECIFY SERVICES HERE
-    //    }
-    //    func peripheral( // get characteristics
-    //        peripheral: CBPeripheral,
-    //        didDiscoverServices error: NSError?) {
-    //        for service in peripheral.services! {
-    //            let thisService = service as CBService
-    //
-    //            if service.uuid == LOCKDOWN_SERVICE_UUID {
-    //                peripheral.discoverCharacteristics(CBUUID, for: thisService)
-    //            }
-    //        }
-    //    }
-    //
-
