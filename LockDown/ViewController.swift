@@ -181,7 +181,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
 
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("did update location")
         let location = locations[0]
         print(location)
         locationMan.stopUpdatingLocation()
@@ -189,8 +188,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
 
     
     @IBAction func getCurrentLocation(_ sender: Any) {
-        print("starting to update location...")
         locationMan.startUpdatingLocation()
-        print("asah dude")
         }
 }
