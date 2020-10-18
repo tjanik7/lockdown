@@ -22,18 +22,20 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     var _characteristics: [CBCharacteristic]?
     var isLocked = false
     
-    let locationManager = CLLocationManager()
+    let locationMan = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         centralMan = CBCentralManager(delegate: self, queue: nil)
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-
-        
-        locationManager.requestAlwaysAuthorization()
+        locationMan.delegate = self
+        locationMan.desiredAccuracy = kCLLocationAccuracyBest
+        locationMan.requestAlwaysAuthorization()
+        }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("MEMORY WARNING")
     }
     
     
@@ -148,10 +150,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             strToSend = "0"
         }
         let isLocked: Data = strToSend.data(using: String.Encoding.utf8)!
-        let characteristic = _characteristics![0]
-        peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
-        
-        peripheralMan.readValue(for: characteristic)
+        if let characteristic = _characteristics?[0] {
+            peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
+            
+            peripheralMan.readValue(for: characteristic)
+        } else {
+            print("No connection to peripheral so no data was written")
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -160,6 +165,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         switch status {
         case .authorizedAlways:
             print("user allow app to get location data when app is active or in background")
+            //locationManager.requestLocation()
         case .authorizedWhenInUse:
             print("user allow app to get location data only when app is active")
         case .denied:
@@ -172,5 +178,19 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             print("Unkown location permission status")
         }
     }
-        
+
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("did update location")
+        let location = locations[0]
+        print(location)
+        locationMan.stopUpdatingLocation()
+    }
+
+    
+    @IBAction func getCurrentLocation(_ sender: Any) {
+        print("starting to update location...")
+        locationMan.startUpdatingLocation()
+        print("asah dude")
+        }
 }
