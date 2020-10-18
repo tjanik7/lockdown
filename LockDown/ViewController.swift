@@ -9,14 +9,18 @@
 import UIKit
 import CoreBluetooth
 import CoreLocation
+import MapKit
 
 let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
 
 let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")
 
-class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var luButton: UIButton!
     @IBOutlet weak var isConnectedLabel: UILabel!
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
     var centralMan: CBCentralManager!
     var peripheralMan: CBPeripheral!
     var _characteristics: [CBCharacteristic]?
@@ -173,7 +177,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         case .restricted:
             print("parental control setting disallow location data")
         case .notDetermined:
-            print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
+            print("the location permission dialog has not been shown or they have not made a selection yet")
         @unknown default:
             print("Unkown location permission status")
         }
@@ -183,6 +187,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
         print(location)
+        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001) // indicates zoom level of map
+        let currLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: currLocation, span: span)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        mapView.setRegion(region, animated: true)
+        self.mapView.addAnnotation(annotation)
         locationMan.stopUpdatingLocation()
     }
 
