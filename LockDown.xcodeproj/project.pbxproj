@@ -15,6 +15,7 @@
 		76A44DA7252E62B700B1F93E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76A44DA5252E62B700B1F93E /* LaunchScreen.storyboard */; };
 		76A44DB2252E62B700B1F93E /* LockDownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A44DB1252E62B700B1F93E /* LockDownTests.swift */; };
 		76A44DBD252E62B700B1F93E /* LockDownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A44DBC252E62B700B1F93E /* LockDownUITests.swift */; };
+		76CD9D51253D088200A074BD /* LockDown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 76CD9D4F253D088200A074BD /* LockDown.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		76A44DB8252E62B700B1F93E /* LockDownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LockDownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76A44DBC252E62B700B1F93E /* LockDownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockDownUITests.swift; sourceTree = "<group>"; };
 		76A44DBE252E62B700B1F93E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76CD9D50253D088200A074BD /* LockDown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LockDown.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				76A44DA3252E62B700B1F93E /* Assets.xcassets */,
 				76A44DA5252E62B700B1F93E /* LaunchScreen.storyboard */,
 				76A44DA8252E62B700B1F93E /* Info.plist */,
+				76CD9D4F253D088200A074BD /* LockDown.xcdatamodeld */,
 			);
 			path = LockDown;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				76A44D9F252E62B500B1F93E /* ViewController.swift in Sources */,
 				76A44D9B252E62B500B1F93E /* AppDelegate.swift in Sources */,
+				76CD9D51253D088200A074BD /* LockDown.xcdatamodeld in Sources */,
 				76A44D9D252E62B500B1F93E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +594,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		76CD9D4F253D088200A074BD /* LockDown.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				76CD9D50253D088200A074BD /* LockDown.xcdatamodel */,
+			);
+			currentVersion = 76CD9D50253D088200A074BD /* LockDown.xcdatamodel */;
+			path = LockDown.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 76A44D8F252E62B500B1F93E /* Project object */;
 }

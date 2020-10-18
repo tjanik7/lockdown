@@ -10,6 +10,7 @@ import UIKit
 import CoreBluetooth
 import CoreLocation
 import MapKit
+import CoreData
 
 let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
 
