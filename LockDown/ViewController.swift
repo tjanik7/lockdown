@@ -183,15 +183,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             print("Unkown location permission status")
         }
     }
-
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0]
-        //print(location)
-        let lat: Double = location.coordinate.latitude
-        let lon: Double = location.coordinate.longitude
-        saveNewLocation(lat: lat, lon: lon)
-        
+    func updateMap(location: CLLocation) {
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001) // indicates zoom level of map
         let currLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region: MKCoordinateRegion = MKCoordinateRegion(center: currLocation, span: span)
@@ -199,13 +192,25 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         annotation.coordinate = location.coordinate
         mapView.setRegion(region, animated: true)
         self.mapView.addAnnotation(annotation)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0]
+        //print(location)
+        let lat: Double = location.coordinate.latitude
+        let lon: Double = location.coordinate.longitude
+        saveNewLocation(lat: lat, lon: lon)
+        updateMap(location: location)
         locationMan.stopUpdatingLocation()
     }
 
     
     @IBAction func getCurrentLocation(_ sender: Any) {
         let resp = getSavedLocation()
-        print(resp[0])
+        let lat = resp[0].value(forKey: "lat") as? Double
+        let lon = resp[0].value(forKey: "lon") as? Double
+        let loc = CLLocation(latitude: lat!, longitude: lon!)
+        updateMap(location: loc)
         }
     
     func getSavedLocation() -> [NSManagedObject] {

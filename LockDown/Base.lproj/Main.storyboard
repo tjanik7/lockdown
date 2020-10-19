@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
@@ -14,37 +14,31 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LockDown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LockDown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBc-AP-Hgl">
-                                <rect key="frame" x="120" y="117" width="175" height="44.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="LockDown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBc-AP-Hgl">
+                                <rect key="frame" x="100" y="53" width="215" height="45"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="37"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Status:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpW-kB-rx0">
-                                <rect key="frame" x="171" y="721" width="70" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3E-an-cQc">
-                                <rect key="frame" x="93" y="504" width="229" height="45"/>
+                                <rect key="frame" x="95.666666666666686" y="305" width="223" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Find My LockDown"/>
                                 <connections>
                                     <action selector="getCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HvG-Vj-biZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gu-eB-g38">
-                                <rect key="frame" x="109" y="757" width="195" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpW-kB-rx0">
+                                <rect key="frame" x="172" y="546" width="70" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80m-Fa-i2k">
-                                <rect key="frame" x="116" y="308" width="181" height="51"/>
+                                <rect key="frame" x="114" y="225" width="186" height="51"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="Lock"/>
                                 <connections>
@@ -52,29 +46,33 @@
                                 </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7qT-fA-PY5">
-                                <rect key="frame" x="87" y="172" width="240" height="128"/>
+                                <rect key="frame" x="67" y="358" width="280" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gu-eB-g38">
+                                <rect key="frame" x="162" y="589" width="90" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3Gu-eB-g38" secondAttribute="trailing" constant="110" id="9HA-VS-LW0"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="top" secondItem="iBc-AP-Hgl" secondAttribute="bottom" constant="146.5" id="C1p-qp-1A1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="80m-Fa-i2k" secondAttribute="trailing" constant="117" id="If8-uZ-qV1"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="top" secondItem="FpW-kB-rx0" secondAttribute="bottom" constant="8" symbolic="YES" id="Jd5-2t-ZoB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S3E-an-cQc" secondAttribute="trailing" constant="92" id="Muz-Dz-gvu"/>
-                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="73" id="OLT-Gf-voY"/>
-                            <constraint firstItem="FpW-kB-rx0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="171" id="X2v-CU-VWt"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="116" id="Xcp-It-KJz"/>
-                            <constraint firstItem="S3E-an-cQc" firstAttribute="top" secondItem="80m-Fa-i2k" secondAttribute="bottom" constant="145" id="XkM-b9-Nv9"/>
-                            <constraint firstItem="FpW-kB-rx0" firstAttribute="centerX" secondItem="80m-Fa-i2k" secondAttribute="centerX" id="biC-jn-Olp"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="109" id="eJC-AT-E5x"/>
-                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="120" id="hEp-n3-ee2"/>
-                            <constraint firstItem="S3E-an-cQc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="93" id="tit-Ix-mXg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iBc-AP-Hgl" secondAttribute="trailing" constant="119" id="wnj-RH-BCM"/>
-                            <constraint firstItem="FpW-kB-rx0" firstAttribute="centerX" secondItem="3Gu-eB-g38" secondAttribute="centerX" id="yYW-d2-dUh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Gu-eB-g38" secondAttribute="bottom" constant="77" id="yo6-IU-jlo"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7Mq-Ws-yMe"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="225" id="Ewg-8K-4R2"/>
+                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="53" id="FWl-cu-wI2"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="I1T-Bj-CDS"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="114" id="KnA-Wc-NZM"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="FpW-kB-rx0" secondAttribute="centerX" id="R1Z-Xo-rOz"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="FpW-kB-rx0" secondAttribute="centerX" id="YhR-gT-jDu"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="top" secondItem="FpW-kB-rx0" secondAttribute="bottom" constant="15" id="a7y-VP-1N9"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="iBc-AP-Hgl" secondAttribute="centerX" id="f8u-Oa-aWy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Gu-eB-g38" secondAttribute="bottom" constant="119" id="fAf-wr-j3g"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="162" id="gc1-WV-yNj"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="S3E-an-cQc" secondAttribute="centerX" id="oj1-5c-WkS"/>
+                            <constraint firstItem="S3E-an-cQc" firstAttribute="top" secondItem="80m-Fa-i2k" secondAttribute="bottom" constant="29" id="seX-Bx-App"/>
+                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="smu-RW-ImM"/>
                         </constraints>
                     </view>
                     <connections>
@@ -85,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="129.91071428571428"/>
+            <point key="canvasLocation" x="137.68115942028987" y="129.61956521739131"/>
         </scene>
     </scenes>
     <resources>
