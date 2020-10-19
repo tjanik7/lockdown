@@ -208,31 +208,62 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         locationMan.startUpdatingLocation()
         }
     
+    
+    
     func save(lat: Double, lon: Double) {
-      
       guard let appDelegate =
         UIApplication.shared.delegate as? AppDelegate else {
         return
       }
       
-      // 1
         let managedContext = appDelegate.persistentContainer.viewContext
       
-      // 2
         let entity = NSEntityDescription.entity(forEntityName: "Location", in: managedContext)!
-      
-        let location = NSManagedObject(entity: entity, insertInto: managedContext)
-      
-      // 3
-        location.setValue(lat, forKeyPath: "lat")
-        location.setValue(lon, forKey: "lon")
+              
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Location")
+        //fetchRequest.predicate = NSPredicate(format: "name = lastLocation")
       
       // 4
       do {
+        var resp = try managedContext.fetch(fetchRequest)
+        if resp.count != 0 {
+            print(resp.count)
+            deleteAllData()
+            print("...data deleted")
+        }
+        let location = NSManagedObject(entity: entity, insertInto: managedContext)
+        location.setValue(lat, forKeyPath: "lat")
+        location.setValue(lon, forKey: "lon")
+        location.setValue("lastLocation", forKey: "name")
+        print(location)
         try managedContext.save()
-        print("saved object")
+        print("current data in CoreData:")
+        resp = try managedContext.fetch(fetchRequest)
+        print(resp)
+        print("end current data (has length of " + String(resp.count) + ")")
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
+    }
+    
+    func deleteAllData()
+    {
+        let entity = "Location"
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+
+        do
+        {
+            let results = try managedContext.fetch(fetchRequest)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                managedContext.delete(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Detele all data in \(entity) error : \(error) \(error.userInfo)")
+        }
     }
 }
