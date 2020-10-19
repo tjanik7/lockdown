@@ -31,8 +31,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         centralMan = CBCentralManager(delegate: self, queue: nil)
         locationMan.delegate = self
@@ -171,7 +169,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         switch status {
         case .authorizedAlways:
             print("user allow app to get location data when app is active or in background")
-            //locationManager.requestLocation()
         case .authorizedWhenInUse:
             print("user allow app to get location data only when app is active")
         case .denied:
@@ -221,9 +218,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         let entity = NSEntityDescription.entity(forEntityName: "Location", in: managedContext)!
               
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Location")
-        //fetchRequest.predicate = NSPredicate(format: "name = lastLocation")
       
-      // 4
       do {
         var resp = try managedContext.fetch(fetchRequest)
         if resp.count != 0 {
