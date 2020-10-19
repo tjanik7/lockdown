@@ -149,9 +149,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
         
     @IBAction func toggleLockState(_ sender: Any) {
-        var strToSend = "1"
-        if isLocked == true {
-            strToSend = "0"
+        var strToSend = "0"
+        if isLocked == false {
+            strToSend = "1"
         }
         let isLocked: Data = strToSend.data(using: String.Encoding.utf8)!
         if let characteristic = _characteristics?[0] {
@@ -188,7 +188,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         //print(location)
         let lat: Double = location.coordinate.latitude
         let lon: Double = location.coordinate.longitude
-        save(lat: lat, lon: lon)
+        saveNewLocation(lat: lat, lon: lon)
         
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001) // indicates zoom level of map
         let currLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
@@ -207,7 +207,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     
     
-    func save(lat: Double, lon: Double) {
+    func saveNewLocation(lat: Double, lon: Double) {
       guard let appDelegate =
         UIApplication.shared.delegate as? AppDelegate else {
         return
