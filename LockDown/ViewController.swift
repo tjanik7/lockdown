@@ -152,10 +152,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         var strToSend = "0"
         if isLocked == false {
             strToSend = "1"
+            // save a new location to CoreData
+            locationMan.startUpdatingLocation()
         }
-        let isLocked: Data = strToSend.data(using: String.Encoding.utf8)!
+        let strToSendAsData: Data = strToSend.data(using: String.Encoding.utf8)!
         if let characteristic = _characteristics?[0] {
-            peripheralMan.writeValue(isLocked, for: characteristic, type: .withResponse)
+            peripheralMan.writeValue(strToSendAsData, for: characteristic, type: .withResponse)
             
             peripheralMan.readValue(for: characteristic)
         } else {
@@ -202,14 +204,30 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
 
     
     @IBAction func getCurrentLocation(_ sender: Any) {
-        locationMan.startUpdatingLocation()
+        let resp = getSavedLocation()
+        print(resp[0])
         }
     
-    
+    func getSavedLocation() -> [NSManagedObject] {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Location")
+        var resp: [NSManagedObject]
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+        resp = try managedContext.fetch(fetchRequest)
+            return resp
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        resp = [NSManagedObject()]
+        print("there was an issue")
+        return resp
+    }
     
     func saveNewLocation(lat: Double, lon: Double) {
-      guard let appDelegate =
-        UIApplication.shared.delegate as? AppDelegate else {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
       }
       
@@ -218,6 +236,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         let entity = NSEntityDescription.entity(forEntityName: "Location", in: managedContext)!
               
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Location")
+        fetchRequest.returnsObjectsAsFaults = false
       
       do {
         var resp = try managedContext.fetch(fetchRequest)
@@ -234,7 +253,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         try managedContext.save()
         print("current data in CoreData:")
         resp = try managedContext.fetch(fetchRequest)
-        print(resp)
+        print(resp[0])
         print("end current data (has length of " + String(resp.count) + ")")
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
