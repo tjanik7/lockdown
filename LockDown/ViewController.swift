@@ -32,6 +32,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         centralMan = CBCentralManager(delegate: self, queue: nil)
         locationMan.delegate = self
@@ -187,7 +188,11 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
-        print(location)
+        //print(location)
+        let lat: Double = location.coordinate.latitude
+        let lon: Double = location.coordinate.longitude
+        save(lat: lat, lon: lon)
+        
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001) // indicates zoom level of map
         let currLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region: MKCoordinateRegion = MKCoordinateRegion(center: currLocation, span: span)
@@ -202,4 +207,32 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     @IBAction func getCurrentLocation(_ sender: Any) {
         locationMan.startUpdatingLocation()
         }
+    
+    func save(lat: Double, lon: Double) {
+      
+      guard let appDelegate =
+        UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+      
+      // 1
+        let managedContext = appDelegate.persistentContainer.viewContext
+      
+      // 2
+        let entity = NSEntityDescription.entity(forEntityName: "Location", in: managedContext)!
+      
+        let location = NSManagedObject(entity: entity, insertInto: managedContext)
+      
+      // 3
+        location.setValue(lat, forKeyPath: "lat")
+        location.setValue(lon, forKey: "lon")
+      
+      // 4
+      do {
+        try managedContext.save()
+        print("saved object")
+      } catch let error as NSError {
+        print("Could not save. \(error), \(error.userInfo)")
+      }
+    }
 }
