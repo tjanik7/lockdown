@@ -2,8 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +23,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3E-an-cQc">
-                                <rect key="frame" x="95.666666666666686" y="305" width="223" height="45"/>
+                                <rect key="frame" x="95.666666666666671" y="305" width="222.66666666666663" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Find My LockDown"/>
                                 <connections>
@@ -45,34 +44,47 @@
                                     <action selector="toggleLockState:" destination="BYZ-38-t0r" eventType="touchUpInside" id="35a-I0-jvO"/>
                                 </connections>
                             </button>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7qT-fA-PY5">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7qT-fA-PY5">
                                 <rect key="frame" x="67" y="358" width="280" height="174"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="174" id="sCS-kf-17y"/>
+                                </constraints>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gu-eB-g38">
-                                <rect key="frame" x="162" y="589" width="90" height="28"/>
+                                <rect key="frame" x="86" y="582" width="242" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2I-rR-WOo">
+                                <rect key="frame" x="188" y="152" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Noise"/>
+                                <connections>
+                                    <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AHg-Ho-3mJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7Mq-Ws-yMe"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="225" id="Ewg-8K-4R2"/>
-                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="53" id="FWl-cu-wI2"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="I1T-Bj-CDS"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="114" id="KnA-Wc-NZM"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="FpW-kB-rx0" secondAttribute="centerX" id="R1Z-Xo-rOz"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="FpW-kB-rx0" secondAttribute="centerX" id="YhR-gT-jDu"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="top" secondItem="FpW-kB-rx0" secondAttribute="bottom" constant="15" id="a7y-VP-1N9"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="iBc-AP-Hgl" secondAttribute="centerX" id="f8u-Oa-aWy"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Gu-eB-g38" secondAttribute="bottom" constant="119" id="fAf-wr-j3g"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="162" id="gc1-WV-yNj"/>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="S3E-an-cQc" secondAttribute="centerX" id="oj1-5c-WkS"/>
-                            <constraint firstItem="S3E-an-cQc" firstAttribute="top" secondItem="80m-Fa-i2k" secondAttribute="bottom" constant="29" id="seX-Bx-App"/>
-                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="smu-RW-ImM"/>
+                            <constraint firstItem="S3E-an-cQc" firstAttribute="top" secondItem="80m-Fa-i2k" secondAttribute="bottom" constant="29" id="0Nn-oe-vFT"/>
+                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="13S-QI-twl"/>
+                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="53" id="7gO-ja-CZB"/>
+                            <constraint firstItem="7qT-fA-PY5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="67" id="EgO-69-mV0"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="F2t-BG-Vbc"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="S3E-an-cQc" secondAttribute="centerX" id="Fvl-t4-4rN"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="7qT-fA-PY5" secondAttribute="centerX" id="Hkd-w6-eEu"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="80m-Fa-i2k" secondAttribute="centerX" id="HrF-Uy-lmQ"/>
+                            <constraint firstItem="S3E-an-cQc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="95.666666666666686" id="Lqu-hd-FcJ"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="iBc-AP-Hgl" secondAttribute="centerX" id="M5O-us-iyU"/>
+                            <constraint firstItem="7qT-fA-PY5" firstAttribute="top" secondItem="S3E-an-cQc" secondAttribute="bottom" constant="8" id="Rj1-oy-fRB"/>
+                            <constraint firstItem="FpW-kB-rx0" firstAttribute="top" secondItem="7qT-fA-PY5" secondAttribute="bottom" constant="14" id="TNK-hR-rZK"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="FpW-kB-rx0" secondAttribute="centerX" id="c3G-K8-d2F"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Gu-eB-g38" secondAttribute="bottom" constant="126" id="d9O-RO-vmC"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="114" id="mL7-ng-zpU"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="top" secondItem="FpW-kB-rx0" secondAttribute="bottom" constant="8" id="uEv-IS-90Q"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="86" id="yhx-Xp-FXz"/>
                         </constraints>
                     </view>
                     <connections>

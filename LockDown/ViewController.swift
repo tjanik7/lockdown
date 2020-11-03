@@ -14,7 +14,13 @@ import CoreData
 
 let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
 
-let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")
+let speakerServiceUUID = CBUUID(string: "c651a18c-1e0e-11eb-adc1-0242ac120002")
+let speakerCharacteristicUUID = CBUUID(string: "21a66e1e-1e0f-11eb-adc1-0242ac120002")
+let speakerDescriptorUUID = CBUUID(string: "c36f8e7e-1e0f-11eb-adc1-0242ac120002")
+let lockServiceUUID = CBUUID(string: "6EB697EA-1010-11EB-ADC1-0242AC120002")
+let lockCharacteristicUUID = CBUUID(string: "b4be2db8-100e-11eb-adc1-0242ac120002")
+
+//let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var luButton: UIButton!
@@ -25,7 +31,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     var centralMan: CBCentralManager!
     var peripheralMan: CBPeripheral!
     var _characteristics: [CBCharacteristic]?
+    var speakerService: CBService?
+    var speakerCharacteristic: CBCharacteristic?
+    var lockService: CBService?
+    var lockCharacteristic: CBCharacteristic?
     var isLocked = false
+    var isPlayingSound = false
     
     let locationMan = CLLocationManager()
 
@@ -68,9 +79,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         advertisementData: [String : Any],
         rssi RSSI: NSNumber) {
         if let pname = peripheral.name {
-            //print(pname)
+            print(pname)
             if pname == "kath" {
-                print("kathleen has been located")
+                print("Device has been located")
                 
                 self.centralMan.stopScan()
                 
@@ -95,7 +106,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print(peripheral)
         if let servs = peripheral.services {
             for service in servs {
-                print(service)
+                if service.uuid == speakerServiceUUID {
+                    speakerService = service
+                    print("found speakerService")
+                } else if service.uuid == lockServiceUUID {
+                    lockService = service
+                    print("found lockService")
+                }
                 self.peripheralMan.discoverCharacteristics(nil, for: service)
             }
         } else {
@@ -104,7 +121,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        let hey = characteristic.value!
+        let hey = lockCharacteristic!.value!
         let str = String(decoding: hey, as: UTF8.self)
         print(str + "\n")
         
@@ -127,15 +144,21 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let chars = service.characteristics {
             _characteristics = service.characteristics
-            peripheral.setNotifyValue(true, for: _characteristics![0])
-            print("notify value has been set")
             for characteristic in chars {
-                print(characteristic)
+                if characteristic.uuid == speakerCharacteristicUUID {
+                    speakerCharacteristic = characteristic
+                    print("found speakerChar")
+                } else if characteristic.uuid == lockCharacteristicUUID {
+                    lockCharacteristic = characteristic
+                    print("found lockChar")
+                }
                 self.peripheralMan.discoverDescriptors(for: characteristic)
             }
         } else {
             print("Unable to unwrap characteristics optional")
         }
+        peripheral.setNotifyValue(true, for: lockCharacteristic!)
+        print("notify value has been set")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {
@@ -156,7 +179,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             locationMan.startUpdatingLocation()
         }
         let strToSendAsData: Data = strToSend.data(using: String.Encoding.utf8)!
-        if let characteristic = _characteristics?[0] {
+        if let characteristic = lockCharacteristic {
             peripheralMan.writeValue(strToSendAsData, for: characteristic, type: .withResponse)
             
             peripheralMan.readValue(for: characteristic)
@@ -264,6 +287,24 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print("Could not save. \(error), \(error.userInfo)")
       }
     }
+    @IBAction func toggleSound(_ sender: Any) {
+        var strToSend = "0"
+        if isPlayingSound == false {
+            strToSend = "1"
+            isPlayingSound = true
+        } else {
+            isPlayingSound = false
+        }
+        let strToSendAsData: Data = strToSend.data(using: String.Encoding.utf8)!
+        if let characteristic = speakerCharacteristic {
+            peripheralMan.writeValue(strToSendAsData, for: characteristic, type: .withResponse)
+            
+            peripheralMan.readValue(for: characteristic)
+        } else {
+            print("No connection to peripheral so no data was written")
+        }
+    }
+    
     
     func deleteAllData()
     {
