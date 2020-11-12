@@ -19,12 +19,16 @@ let speakerCharacteristicUUID = CBUUID(string: "21a66e1e-1e0f-11eb-adc1-0242ac12
 let speakerDescriptorUUID = CBUUID(string: "c36f8e7e-1e0f-11eb-adc1-0242ac120002")
 let lockServiceUUID = CBUUID(string: "6EB697EA-1010-11EB-ADC1-0242AC120002")
 let lockCharacteristicUUID = CBUUID(string: "b4be2db8-100e-11eb-adc1-0242ac120002")
+let enrollServiceUUID = CBUUID(string: "b809ff46-249b-11eb-adc1-0242ac120002")
+let enrollCharacteristicUUID = CBUUID(string: "cb7e753e-249b-11eb-adc1-0242ac120002")
+let deleteServiceUUID = CBUUID(string: "f805202a-249c-11eb-adc1-0242ac120002")
+let deleteCharacteristicUUID = CBUUID(string: "fc1ca822-249c-11eb-adc1-0242ac120002")
 
-//let LOCKDOWN_SERVICE_UUID = CBUUID(string: "a495ff20-c5b1-4b44-b512-1370f02d74de")
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var luButton: UIButton!
     @IBOutlet weak var isConnectedLabel: UILabel!
+    @IBOutlet weak var soundButton: UIButton!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -35,6 +39,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     var speakerCharacteristic: CBCharacteristic?
     var lockService: CBService?
     var lockCharacteristic: CBCharacteristic?
+    var enrollService: CBService?
+    var enrollCharacteristic: CBCharacteristic?
+    var deleteService: CBService?
+    var deleteCharacteristic: CBCharacteristic?
     var isLocked = false
     var isPlayingSound = false
     
@@ -112,6 +120,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 } else if service.uuid == lockServiceUUID {
                     lockService = service
                     print("found lockService")
+                } else if service.uuid == enrollServiceUUID {
+                    enrollService = service
+                    print("found enrollService")
+                } else if service.uuid == deleteServiceUUID {
+                    deleteService = service
+                    print("found deleteService")
                 }
                 self.peripheralMan.discoverCharacteristics(nil, for: service)
             }
@@ -121,23 +135,43 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        let hey = lockCharacteristic!.value!
-        let str = String(decoding: hey, as: UTF8.self)
-        print(str + "\n")
-        
-        if str == "0" {
-            isLocked = false
-        } else if str == "1" {
-            isLocked = true
-        } else {
-            print("not really sure if its locked or unlocked")
+        if let lcv = lockCharacteristic!.value {
+            let lcvstr = String(decoding: lcv, as: UTF8.self)
+            print(lcvstr + "\n")
+            
+            if lcvstr == "0" {
+                isLocked = false
+            } else if lcvstr == "1" {
+                isLocked = true
+            } else {
+                print("not really sure if its locked or unlocked")
+            }
+            var newButtonText = "Lock"
+            if isLocked {
+                newButtonText = "Unlock"
+            }
+            
+            luButton.setTitle(newButtonText, for: .normal)
         }
-        var newButtonText = "Lock"
-        if isLocked {
-            newButtonText = "Unlock"
-        }
         
-        luButton.setTitle(newButtonText, for: .normal)
+        if let scv = speakerCharacteristic!.value {
+            let scvstr = String(decoding: scv, as: UTF8.self)
+            print(scvstr + "\n")
+            
+            if scvstr == "0" {
+                isPlayingSound = false
+            } else if scvstr == "1" {
+                isPlayingSound = true
+            } else {
+                print("not really sure if its locked or unlocked")
+            }
+            var newButtonText = "Start Sound"
+            if isPlayingSound {
+                newButtonText = "Stop Sound"
+            }
+            
+            soundButton.setTitle(newButtonText, for: .normal)
+        }
         
     }
     
@@ -151,13 +185,30 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 } else if characteristic.uuid == lockCharacteristicUUID {
                     lockCharacteristic = characteristic
                     print("found lockChar")
+                } else if characteristic.uuid == enrollCharacteristicUUID {
+                    enrollCharacteristic = characteristic
+                    print("found enrollChar")
+                } else if characteristic.uuid == deleteCharacteristicUUID {
+                    deleteCharacteristic = characteristic
+                    print("found deleteChar")
                 }
                 self.peripheralMan.discoverDescriptors(for: characteristic)
             }
         } else {
             print("Unable to unwrap characteristics optional")
         }
-        peripheral.setNotifyValue(true, for: lockCharacteristic!)
+        if lockCharacteristic != nil {
+            peripheral.setNotifyValue(true, for: lockCharacteristic!)
+        }
+        if speakerCharacteristic != nil {
+            peripheral.setNotifyValue(true, for: speakerCharacteristic!)
+        }
+        if enrollCharacteristic != nil {
+            peripheral.setNotifyValue(true, for: enrollCharacteristic!)
+        }
+        if deleteCharacteristic != nil {
+            peripheral.setNotifyValue(true, for: deleteCharacteristic!)
+        }
         print("notify value has been set")
     }
     
@@ -291,9 +342,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         var strToSend = "0"
         if isPlayingSound == false {
             strToSend = "1"
-            isPlayingSound = true
-        } else {
-            isPlayingSound = false
         }
         let strToSendAsData: Data = strToSend.data(using: String.Encoding.utf8)!
         if let characteristic = speakerCharacteristic {
