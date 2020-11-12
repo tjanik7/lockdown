@@ -67,10 +67,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXP-2R-f2h">
                                 <rect key="frame" x="60" y="755" width="39" height="30"/>
                                 <state key="normal" title="Enroll"/>
+                                <connections>
+                                    <action selector="enrollAFingerprint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ujv-jS-gcu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkD-Yh-X8x">
                                 <rect key="frame" x="285" y="755" width="45" height="30"/>
                                 <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteAllFingerprints:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qHM-7I-1ME"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

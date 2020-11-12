@@ -352,6 +352,21 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             print("No connection to peripheral so no data was written")
         }
     }
+    @IBAction func enrollAFingerprint(_ sender: Any) {
+        let strToSendAsData: Data = "1".data(using: String.Encoding.utf8)!
+        if let characteristic = enrollCharacteristic {
+            peripheralMan.writeValue(strToSendAsData, for: characteristic, type: .withResponse)
+            print("wrote 1 to enroll")
+        }
+    }
+    @IBAction func deleteAllFingerprints(_ sender: Any) {
+        let strToSendAsData: Data = "1".data(using: String.Encoding.utf8)!
+        if let characteristic = deleteCharacteristic {
+            peripheralMan.writeValue(strToSendAsData, for: characteristic, type: .withResponse)
+            print("wrote 1 to delete")
+        }
+    }
+    
     
     
     func deleteAllData()
