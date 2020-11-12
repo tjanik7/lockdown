@@ -47,62 +47,60 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpW-kB-rx0">
-                                <rect key="frame" x="172" y="613" width="70" height="28"/>
+                                <rect key="frame" x="172" y="749" width="70" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gu-eB-g38">
-                                <rect key="frame" x="161.5" y="649" width="91" height="28"/>
+                                <rect key="frame" x="161.5" y="785" width="91" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7qT-fA-PY5">
                                 <rect key="frame" x="23" y="347" width="368" height="241"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="241" id="ehF-nV-i2F"/>
-                                </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXP-2R-f2h">
-                                <rect key="frame" x="60" y="755" width="39" height="30"/>
-                                <state key="normal" title="Enroll"/>
-                                <connections>
-                                    <action selector="enrollAFingerprint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ujv-jS-gcu"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkD-Yh-X8x">
-                                <rect key="frame" x="285" y="755" width="45" height="30"/>
-                                <state key="normal" title="Delete"/>
+                                <rect key="frame" x="110.5" y="659" width="193" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Delete All Fingerprints"/>
                                 <connections>
                                     <action selector="deleteAllFingerprints:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qHM-7I-1ME"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXP-2R-f2h">
+                                <rect key="frame" x="110" y="615" width="194" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Enroll New Fingerprint"/>
+                                <connections>
+                                    <action selector="enrollAFingerprint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ujv-jS-gcu"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="80m-Fa-i2k" firstAttribute="top" secondItem="m2I-rR-WOo" secondAttribute="bottom" constant="23" id="1E8-Un-Ctf"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="23" id="54C-oq-LvL"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="347" id="6xV-fK-dUR"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="3Gu-eB-g38" secondAttribute="centerX" id="7aX-Ye-X4h"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="80m-Fa-i2k" secondAttribute="centerX" id="8Et-W6-yQt"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="m2I-rR-WOo" secondAttribute="centerX" id="As8-Fw-evz"/>
-                            <constraint firstItem="m2I-rR-WOo" firstAttribute="top" secondItem="iBc-AP-Hgl" secondAttribute="bottom" constant="50" id="D8d-ly-15k"/>
-                            <constraint firstItem="FpW-kB-rx0" firstAttribute="top" secondItem="7qT-fA-PY5" secondAttribute="bottom" constant="25" id="KNs-vd-n9Y"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="S3E-an-cQc" secondAttribute="centerX" id="MK3-gI-KCH"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="iBc-AP-Hgl" secondAttribute="centerX" id="Nvm-Ok-k9s"/>
-                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9" id="P2s-Ue-EiX"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="FpW-kB-rx0" secondAttribute="centerX" id="PmK-8E-B7K"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="X2i-b1-Vna"/>
-                            <constraint firstItem="RXP-2R-f2h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="XLQ-Tu-1SZ"/>
-                            <constraint firstItem="FpW-kB-rx0" firstAttribute="top" secondItem="7qT-fA-PY5" secondAttribute="bottom" constant="25" id="df2-QC-rLi"/>
-                            <constraint firstItem="RXP-2R-f2h" firstAttribute="baseline" secondItem="AkD-Yh-X8x" secondAttribute="baseline" id="nGI-ME-Dvr"/>
-                            <constraint firstItem="7qT-fA-PY5" firstAttribute="top" secondItem="S3E-an-cQc" secondAttribute="bottom" constant="8" symbolic="YES" id="pCN-15-mJ3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AkD-Yh-X8x" secondAttribute="trailing" constant="84" id="q21-vb-0jn"/>
-                            <constraint firstItem="3Gu-eB-g38" firstAttribute="top" secondItem="FpW-kB-rx0" secondAttribute="bottom" constant="8" symbolic="YES" id="qWe-aY-kkt"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RXP-2R-f2h" secondAttribute="bottom" constant="77" id="x6C-9e-k4e"/>
-                            <constraint firstItem="S3E-an-cQc" firstAttribute="top" secondItem="80m-Fa-i2k" secondAttribute="bottom" constant="18" id="yFN-Tj-diL"/>
+                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="centerX" secondItem="m2I-rR-WOo" secondAttribute="centerX" id="9Bf-gl-CIQ"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="top" secondItem="FpW-kB-rx0" secondAttribute="bottom" constant="8" symbolic="YES" id="Cwm-GB-esP"/>
+                            <constraint firstItem="m2I-rR-WOo" firstAttribute="centerX" secondItem="80m-Fa-i2k" secondAttribute="centerX" id="GEg-NV-B5Q"/>
+                            <constraint firstItem="S3E-an-cQc" firstAttribute="centerX" secondItem="7qT-fA-PY5" secondAttribute="centerX" id="Hma-D6-7uS"/>
+                            <constraint firstItem="S3E-an-cQc" firstAttribute="top" secondItem="80m-Fa-i2k" secondAttribute="bottom" constant="18" id="QjC-bw-57l"/>
+                            <constraint firstItem="AkD-Yh-X8x" firstAttribute="top" secondItem="RXP-2R-f2h" secondAttribute="bottom" constant="8" symbolic="YES" id="RMG-58-3uI"/>
+                            <constraint firstItem="FpW-kB-rx0" firstAttribute="top" secondItem="AkD-Yh-X8x" secondAttribute="bottom" constant="54" id="Z3Z-MG-Kdy"/>
+                            <constraint firstItem="3Gu-eB-g38" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="b95-Qx-jb3"/>
+                            <constraint firstItem="AkD-Yh-X8x" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dNp-7d-7tS"/>
+                            <constraint firstItem="7qT-fA-PY5" firstAttribute="top" secondItem="S3E-an-cQc" secondAttribute="bottom" constant="8" symbolic="YES" id="drH-aj-0mS"/>
+                            <constraint firstItem="RXP-2R-f2h" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="due-Gy-RZl"/>
+                            <constraint firstItem="7qT-fA-PY5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="23" id="f25-Rn-tfV"/>
+                            <constraint firstItem="RXP-2R-f2h" firstAttribute="top" secondItem="7qT-fA-PY5" secondAttribute="bottom" constant="27" id="fXh-Bv-Ag0"/>
+                            <constraint firstItem="m2I-rR-WOo" firstAttribute="top" secondItem="iBc-AP-Hgl" secondAttribute="bottom" constant="50" id="h3J-nW-yHS"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="centerX" secondItem="S3E-an-cQc" secondAttribute="centerX" id="hJS-tu-8gV"/>
+                            <constraint firstItem="iBc-AP-Hgl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9" id="j9P-q2-vg3"/>
+                            <constraint firstItem="80m-Fa-i2k" firstAttribute="top" secondItem="m2I-rR-WOo" secondAttribute="bottom" constant="23" id="oZA-L5-49U"/>
+                            <constraint firstItem="7qT-fA-PY5" firstAttribute="centerX" secondItem="RXP-2R-f2h" secondAttribute="centerX" id="ogh-B9-EMH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Gu-eB-g38" secondAttribute="bottom" constant="49" id="sCb-bb-hKs"/>
+                            <constraint firstItem="FpW-kB-rx0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zQw-B6-jTy"/>
                         </constraints>
                     </view>
                     <connections>
