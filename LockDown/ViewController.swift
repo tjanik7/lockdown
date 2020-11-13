@@ -12,8 +12,6 @@ import CoreLocation
 import MapKit
 import CoreData
 
-let firstServiceUUID = CBUUID(string: "1d4103b8-0fe9-11eb-adc1-0242ac120002")
-
 let speakerServiceUUID = CBUUID(string: "c651a18c-1e0e-11eb-adc1-0242ac120002")
 let speakerCharacteristicUUID = CBUUID(string: "21a66e1e-1e0f-11eb-adc1-0242ac120002")
 let speakerDescriptorUUID = CBUUID(string: "c36f8e7e-1e0f-11eb-adc1-0242ac120002")
